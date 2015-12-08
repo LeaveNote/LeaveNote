@@ -1,12 +1,14 @@
 <script lang="babel">
-export default {
+import Vue from 'vue'
+
+export default Vue.extend({
   data: {
     highlights: [],
   },
   created: function () {
 
   },
-}
+})
 </script>
 
 <template>

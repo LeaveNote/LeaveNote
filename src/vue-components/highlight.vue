@@ -1,5 +1,7 @@
 <script lang="babel">
-export default {
-  
-}
+import Vue from 'vue'
+
+export default Vue.extend({
+
+})
 </script>
