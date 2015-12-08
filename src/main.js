@@ -1,4 +1,5 @@
 import App from './vue-components/app.vue'
 
+let app = new App()
 // TODO: `$appendTo()` after `DOMContentLoaded` event
-(new App()).$appendTo('body')
+app.$mount().$appendTo('body')

@@ -6,9 +6,11 @@ import onHighlightText from '../vue-directives/on-highlight-text'
 import {fetchHighlights} from '../store'
 
 export default Vue.extend({
-  data: {
-    highlights: [],
-    notes: [],
+  data () {
+    return {
+      highlights: [],
+      notes: [],
+    }
   },
   components: {
     Toolbar,
@@ -41,9 +43,9 @@ export default Vue.extend({
   <Toolbar></Toolbar>
   <Highlight
     v-for="highlight in highlights"
-    v-bind:page="highlight.page"
-    v-bind:selectors="highlight.selectors"
-    v-bind:content="highlight.content">
+    v-bind:page.sync="highlight.page"
+    v-bind:selectors.sync="highlight.selectors"
+    v-bind:content.sync="highlight.content">
   </Highlight>
 </div>
 </template>

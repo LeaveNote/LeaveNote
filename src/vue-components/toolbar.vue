@@ -2,12 +2,7 @@
 import Vue from 'vue'
 
 export default Vue.extend({
-  data: {
-    highlights: [],
-  },
-  created: function () {
 
-  },
 })
 </script>
 

@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/LeaveNote/LeaveNote",
   "scripts": {
-    "dev": "rm -f ./dist && webpack"
+    "dev": "rm -fr ./dist && node build"
   },
   "devDependencies": {
     "babel": "^6.3.13",
@@ -29,11 +29,14 @@
     "babel-preset-stage-1": "^6.3.13",
     "babel-runtime": "^5.8.34",
     "css-loader": "^0.23.0",
+    "html-webpack-plugin": "^1.7.0",
+    "q": "^1.4.1",
     "style-loader": "^0.13.0",
     "vue": "^1.0.10",
     "vue-hot-reload-api": "^1.2.2",
     "vue-html-loader": "^1.0.0",
     "vue-loader": "^7.2.0",
-    "webpack": "^1.12.9"
+    "webpack": "^1.12.9",
+    "webpack-dev-server": "^1.14.0"
   }
 }

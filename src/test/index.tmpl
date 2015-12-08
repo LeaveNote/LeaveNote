@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>LeaveNote test page</title>
+  </head>
+  <body>
+    <button id="loadLeaveNoteButton">Load LeaveNote</button>
+    <h1>LeaveNote test page</h1>
+    <p>
+      Can highlight some text.
+    </p>
+    <p>
+      Can highlight <span>text </span><span>in different text nodes</span>.
+    </p>
+    <script type="text/javascript">
+      (function (scriptUrl) {
+        document.querySelector('#loadLeaveNoteButton')
+          .addEventListener('click', function () {
+            var script = document.createElement('script')
+            script.type = 'text/javascript'
+            script.src = scriptUrl
+            document.body.appendChild(script)
+          }, false)
+      })('{%= o.htmlWebpackPlugin.files.chunks.main.entry %}')
+    </script>
+  </body>
+</html>
