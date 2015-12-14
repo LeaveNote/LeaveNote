@@ -48,7 +48,7 @@ let server = new WebpackDevServer(compiler, {
   contentBase: './dist',
   colors: true,
   hot: true,
-  // inline: true,
+  inline: true,
 })
 
 server.listen(9090, 'localhost')
