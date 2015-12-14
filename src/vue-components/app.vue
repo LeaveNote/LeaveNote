@@ -36,10 +36,9 @@ export default Vue.extend({
 
 <template>
 <div class="leave-note"
-  v-on-highlight-text="{
-    scopeElement: $el.ownerDocument.body,
-    handleHighlightText,
-  }">
+  v-bind:scopeElement="$el.ownerDocument.body"
+  v-bind:handleHighlightText="handleHighlightText"
+  v-on-highlight-text>
   <Toolbar></Toolbar>
   <Highlight
     v-for="highlight in highlights"
