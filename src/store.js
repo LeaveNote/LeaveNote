@@ -1,9 +1,7 @@
 import Q from 'q'
 
-// @var {Object[]} highlights
-// @var {string} highlight.page Page URI, including hash, exclude protocol
-// @var {string[]} highlight.selectors
-// @var {string} highlight.content
+// @var {Object[]} highlights Each object is highlighted text schema, see doc:
+// https://github.com/LeaveNote/LeaveNote/issues/4
 export let highlights = []
 
 // @prop {Object[]} notes
