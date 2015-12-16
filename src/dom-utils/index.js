@@ -67,16 +67,48 @@ getHighlightedTextNode.ERROR_MESSAGES = [
 ]
 
 // @param {Node} node
-// @return {Text[]} All text nodes inside element, as the order in DOM
-export function getTextNodesIn (node) {
+// @param {Object} [options]
+// @param {boolean} [options.excludeWhitespaceText=true]
+// @param {string[]} [options.excludeTagNames=[...]] See source code for default
+// value.
+// @return {Text[]} All text nodes inside element, as the order in DOM.
+export function getTextNodesIn (node, options) {
+  options = options || {}
+  if (!options.hasOwnProperty('excludeWhitespaceText')) {
+    options.excludeWhitespaceText = true
+  }
+  if (!options.hasOwnProperty('excludeTagNames')) {
+    options.excludeTagNames = [
+      'AUDIO',
+      'BGSOUND', 'BUTTON',
+      'HEAD',
+      'IFRAME', 'INPUT', 'IMG',
+      'LINK',
+      'META',
+      'OBJECT',
+      'SCRIPT', 'STYLE',
+      'TEXTAREA', 'TIME',
+      'VIDEO',
+    ]
+  }
+
+  const NON_WHITESPACE = /\S/
   let textNodes = []
 
   ;(function pushIntoTextNodes (node) {
     if (node.nodeType === Node.TEXT_NODE) {
-      textNodes.push(node)
-      return
+      if (options.excludeWhitespaceText) {
+        let isAllWhitespaceText = !NON_WHITESPACE.test(node.nodeValue)
+        if (isAllWhitespaceText) return
+        else textNodes.push(node)
+      }
+      else {
+        textNodes.push(node)
+        return
+      }
     }
     else {
+      if (options.excludeTagNames.indexOf(node.tagName) >= 0) return
       for (let i = 0; i < node.childNodes.length; ++i) {
         pushIntoTextNodes(node.childNodes[i])
       }
