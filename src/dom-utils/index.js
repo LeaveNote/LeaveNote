@@ -53,5 +53,19 @@ export function getHighlightedTextNode (selection) {
 // @param {Node} node
 // @return {Text[]} All text nodes inside element, as the order in DOM
 export function getTextNodesIn (node) {
+  let textNodes = []
 
+  (function pushIntoTextNodes (node) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      textNodes.push(node)
+      return
+    }
+    else {
+      for (let i = 0; i < node.childNodes.length; ++i) {
+        pushIntoTextNodes(node.childNodes[i])
+      }
+    }
+  })(node)
+
+  return textNodes
 }
