@@ -20,7 +20,7 @@ export function getHighlightedTextNode (selection) {
     throw new Error(getHighlightedTextNode.ERROR_MESSAGES[1])
   }
   // @var {Element} commonAncestorElement
-  let commonAncestorElement
+  let commonAncestorElement = commonAncestorNode
   while (commonAncestorNode.nodeType !== Node.ELEMENT_NODE) {
     commonAncestorNode = commonAncestorNode.parentNode
     if (!commonAncestorElement) {
