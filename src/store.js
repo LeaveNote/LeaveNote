@@ -1,6 +1,6 @@
 import Q from 'q'
 
-// @var {Object[]} highlights Each object is highlighted text schema, see doc:
+// @var {HighlightedText[]} highlights See doc:
 // https://github.com/LeaveNote/LeaveNote/issues/4
 export let highlights = []
 
