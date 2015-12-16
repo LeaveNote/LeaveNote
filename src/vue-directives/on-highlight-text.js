@@ -27,19 +27,6 @@ export default {
     selection = win.getSelection()
     if (selection.isCollapsed) return
   },
-
-  // @param {Element} el
-  getSelectors (el) {
-    let selectors = []
-    do {
-      selectors.unshift({
-        tagName: el.tagName.toLowerCase(),
-        classList: [].slice.call(el.classList, 0),
-      })
-    }
-    while (!isHtmlBodyElement(el))
-    return selectors
-  },
 }
 
 function noop () {}
