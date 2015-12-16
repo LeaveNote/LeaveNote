@@ -71,7 +71,7 @@ getHighlightedTextNode.ERROR_MESSAGES = [
 export function getTextNodesIn (node) {
   let textNodes = []
 
-  (function pushIntoTextNodes (node) {
+  ;(function pushIntoTextNodes (node) {
     if (node.nodeType === Node.TEXT_NODE) {
       textNodes.push(node)
       return
