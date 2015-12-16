@@ -1,9 +1,9 @@
+import {getHighlightedTextNode} from '../dom-utils'
+
 export default {
   // @param {Element} scopeElement
   // @param {Function} handleHighlightText
-  // @param {Function} handleError
-  // Error code:
-  // 1. cannot highlight text selection
+  // @param {Function} [handleError]
   params: ['scopeElement', 'handleHighlightText', 'handleError'],
 
   bind () {
@@ -25,7 +25,20 @@ export default {
     let selection
     if (!win.getSelection) return
     selection = win.getSelection()
-    if (selection.isCollapsed) return
+
+    try {
+      var highlightedTextNode = getHighlightedTextNode(selection)
+    } catch (error) {
+      switch (error.message) {
+        case getHighlightedTextNode.ERROR_MESSAGES[0]:
+        case getHighlightedTextNode.ERROR_MESSAGES[1]:
+        case getHighlightedTextNode.ERROR_MESSAGES[2]:
+          // No need to do anything
+          return
+      }
+    }
+
+    this.params.handleHighlightText(highlightedTextNode)
   },
 }
 
