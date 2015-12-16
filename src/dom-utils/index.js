@@ -1,7 +1,7 @@
 // @function get `HighlightedTextNode` object from selection
 // @param {Selection} selection See doc:
 // https://developer.mozilla.org/en-US/docs/Web/API/Selection
-// @throws {Error} Error with message "no selection"
+// @throws {Error} Error with message "selection is collapsed"
 // @throws {Error} Error with message "no common ancestor element"
 // @throws {Error} Error with message "range edge node is not text node"
 // @return {HighlightedTextNode} See doc:
