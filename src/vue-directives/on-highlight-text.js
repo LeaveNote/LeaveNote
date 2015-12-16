@@ -7,43 +7,25 @@ export default {
   params: ['scopeElement', 'handleHighlightText', 'handleError'],
 
   bind () {
-    this._boundHandleMouseDown = this.handleMouseDown.bind(this)
+    if (this.params.handleError === void 0) this.params.handleError = noop
     this._boundHandleMouseUp = this.handleMouseUp.bind(this)
-    this._elOnMouseDown = null
 
-    let scopeElement = this.params.scopeElement
-    scopeElement.addEventListener('mousedown', this._boundHandleMouseDown)
-    scopeElement.addEventListener('mouseup', this._boundHandleMouseUp)
-
-    if (this.params.handleError === void 0) {
-      this.params.handleError = noop
-    }
+    this.params.scopeElement
+      .addEventListener('mouseup', this._boundHandleMouseUp)
   },
 
   unbind () {
-    let scopeElement = this.params.scopeElement
-    scopeElement.removeEventListener('mousedown', this._boundHandleMouseDown)
-    scopeElement.removeEventListener('mouseup', this._boundHandleMouseUp)
-    this._boundHandleMouseDown = null
+    this.params.scopeElement
+      .removeEventListener('mouseup', this._boundHandleMouseUp)
     this._boundHandleMouseUp = null
   },
 
-  handleMouseDown (event) {
-    this._elOnSelectionStart = event.target
-  },
-
   handleMouseUp (event) {
-    let text = this.getSelectedText(event)
-    if (!text) return
-  },
-
-  // @param {Event} event
-  getSelectedText (event) {
     let win = event.view
-    if (win.getSelection) {
-      return win.getSelection().toString()
-    }
-    else return ''
+    let selection
+    if (!win.getSelection) return
+    selection = win.getSelection()
+    if (selection.isCollapsed) return
   },
 
   // @param {Element} el
