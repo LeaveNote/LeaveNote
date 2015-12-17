@@ -28,7 +28,18 @@ export function getHighlightedTextNode (selection) {
     }
   }
 
-  let allTextNodes = getTextNodesIn(commonAncestorElement)
+  const NON_WHITESPACE = /\S/
+  let allTextNodes = getTextNodesIn(commonAncestorElement, {
+    isDeepIntoNode (node) {
+      return getHighlightedTextNode
+        .EXCLUDE_TAG_NAMES
+        .indexOf(node.tagName) === -1
+    },
+    isPickTextNode (textNode) {
+      // not pick text node which only contain whitespace characters
+      return NON_WHITESPACE.test(textNode.nodeValue)
+    },
+  })
   let highlightedTextNodes
   // TODO: check whether `range.startContainer` is always text node
   if (range.startContainer.nodeType !== Node.TEXT_NODE ||
@@ -58,6 +69,24 @@ export function getHighlightedTextNode (selection) {
   }
 }
 
+getHighlightedTextNode.EXCLUDE_TAG_NAMES = [
+  'AUDIO', 'AREA',
+  'BGSOUND', 'BUTTON',
+  'CANVAS',
+  'EMBED',
+  'HEAD',
+  'IFRAME', 'INPUT', 'IMG',
+  'KEYGEN',
+  'LINK',
+  'NOSCRIPT',
+  'META', 'MAP',
+  'OBJECT', 'OPTION', 'OPTGROUP',
+  'PARAM',
+  'SCRIPT', 'STYLE', 'SELECT', 'SOURCE',
+  'TEXTAREA', 'TIME', 'TRACK', 'TEMPLATE', 'TITLE',
+  'VIDEO',
+]
+
 // Array index is error code, array item is error message,
 // so item value can be changed, but make sure keep the same meaning.
 getHighlightedTextNode.ERROR_MESSAGES = [
@@ -72,51 +101,27 @@ getHighlightedTextNode.ERROR_MESSAGES = [
 // @param {string[]} [options.excludeTagNames=[...]] See source code for default
 // value. Not find text nodes in these tags.
 // @return {Text[]} All text nodes inside element, as the order in DOM.
-export function getTextNodesIn (node, options) {
-  options = options || {}
-  if (!options.hasOwnProperty('excludeWhitespaceText')) {
-    options.excludeWhitespaceText = true
-  }
-  if (!options.hasOwnProperty('excludeTagNames')) {
-    options.excludeTagNames = [
-      'AUDIO', 'AREA',
-      'BGSOUND', 'BUTTON',
-      'CANVAS',
-      'EMBED',
-      'HEAD',
-      'IFRAME', 'INPUT', 'IMG',
-      'KEYGEN',
-      'LINK',
-      'NOSCRIPT',
-      'META', 'MAP',
-      'OBJECT', 'OPTION', 'OPTGROUP',
-      'PARAM',
-      'SCRIPT', 'STYLE', 'SELECT', 'SOURCE',
-      'TEXTAREA', 'TIME', 'TRACK', 'TEMPLATE', 'TITLE',
-      'VIDEO',
-    ]
-  }
-
-  const NON_WHITESPACE = /\S/
+export function getTextNodesIn (
+  node,
+  {
+    isPickTextNode = (function() {return true}),
+    isDeepIntoNode = (function() {return true}),
+  } = {}
+) {
   let textNodes = []
 
   ;(function pushIntoTextNodes (node) {
     if (node.nodeType === Node.TEXT_NODE) {
-      if (options.excludeWhitespaceText) {
-        let isAllWhitespaceText = !NON_WHITESPACE.test(node.nodeValue)
-        if (isAllWhitespaceText) return
-        else textNodes.push(node)
-      }
-      else {
-        textNodes.push(node)
-        return
-      }
+      if (isPickTextNode(node)) textNodes.push(node)
+      else return
     }
     else {
-      if (options.excludeTagNames.indexOf(node.tagName) >= 0) return
-      for (let i = 0; i < node.childNodes.length; ++i) {
-        pushIntoTextNodes(node.childNodes[i])
+      if (isDeepIntoNode(node)) {
+        for (let i = 0; i < node.childNodes.length; ++i) {
+          pushIntoTextNodes(node.childNodes[i])
+        }
       }
+      else return
     }
   })(node)
 
