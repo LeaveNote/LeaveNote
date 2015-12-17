@@ -70,7 +70,7 @@ getHighlightedTextNode.ERROR_MESSAGES = [
 // @param {Object} [options]
 // @param {boolean} [options.excludeWhitespaceText=true]
 // @param {string[]} [options.excludeTagNames=[...]] See source code for default
-// value.
+// value. Not find text nodes in these tags.
 // @return {Text[]} All text nodes inside element, as the order in DOM.
 export function getTextNodesIn (node, options) {
   options = options || {}
@@ -79,15 +79,20 @@ export function getTextNodesIn (node, options) {
   }
   if (!options.hasOwnProperty('excludeTagNames')) {
     options.excludeTagNames = [
-      'AUDIO',
+      'AUDIO', 'AREA',
       'BGSOUND', 'BUTTON',
+      'CANVAS',
+      'EMBED',
       'HEAD',
       'IFRAME', 'INPUT', 'IMG',
+      'KEYGEN',
       'LINK',
-      'META',
-      'OBJECT',
-      'SCRIPT', 'STYLE',
-      'TEXTAREA', 'TIME',
+      'NOSCRIPT',
+      'META', 'MAP',
+      'OBJECT', 'OPTION', 'OPTGROUP',
+      'PARAM',
+      'SCRIPT', 'STYLE', 'SELECT', 'SOURCE',
+      'TEXTAREA', 'TIME', 'TRACK', 'TEMPLATE', 'TITLE',
       'VIDEO',
     ]
   }
