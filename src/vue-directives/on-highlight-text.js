@@ -30,11 +30,12 @@ export default {
       var highlightedTextNode = getHighlightedTextNode(selection)
     } catch (error) {
       switch (error.message) {
-        case getHighlightedTextNode.ERROR_MESSAGES[0]:
-        case getHighlightedTextNode.ERROR_MESSAGES[1]:
-        case getHighlightedTextNode.ERROR_MESSAGES[2]:
-          // No need to do anything
+        case getHighlightedTextNode.ERROR_MAP['10']:
+        case getHighlightedTextNode.ERROR_MAP['20']:
+          // No need to do anything about these error
           return
+        default:
+          throw error
       }
     }
 

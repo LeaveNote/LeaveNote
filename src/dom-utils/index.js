@@ -1,13 +1,13 @@
 // @function get `HighlightedTextNode` object from selection
 // @param {Selection} selection See doc:
 // https://developer.mozilla.org/en-US/docs/Web/API/Selection
-// @throws {Error} Error messages are listed in
-// `getHighlightedTextNode.ERROR_MESSAGES`
+// @exception {Error} See `getHighlightedTextNode.ERROR_MAP` for the map from
+// error code to error message
 // @return {HighlightedTextNode} See doc:
 // https://github.com/LeaveNote/LeaveNote/issues/4
 export function getHighlightedTextNode (selection) {
   if (selection.isCollapsed) {
-    throw new Error(getHighlightedTextNode.ERROR_MESSAGES[0])
+    throw new Error(getHighlightedTextNode.ERROR_MAP['10'])
   }
 
   // @var {Range} range See doc:
@@ -17,14 +17,14 @@ export function getHighlightedTextNode (selection) {
   // @var {Node} commonAncestorNode
   let commonAncestorNode = range.commonAncestorContainer
   if (!commonAncestorNode) {
-    throw new Error(getHighlightedTextNode.ERROR_MESSAGES[1])
+    throw new Error(getHighlightedTextNode.ERROR_MAP['20'])
   }
   // @var {Element} commonAncestorElement
   let commonAncestorElement = commonAncestorNode
   while (commonAncestorNode.nodeType !== Node.ELEMENT_NODE) {
     commonAncestorNode = commonAncestorNode.parentNode
     if (!commonAncestorElement) {
-      throw new Error(getHighlightedTextNode.ERROR_MESSAGES[1])
+      throw new Error(getHighlightedTextNode.ERROR_MAP['20'])
     }
   }
 
@@ -81,11 +81,10 @@ getHighlightedTextNode.EXCLUDE_TAG_NAMES = [
 
 // Array index is error code, array item is error message,
 // so item value can be changed, but make sure keep the same meaning.
-getHighlightedTextNode.ERROR_MESSAGES = [
-  'selection is collapsed',
-  'no common ancestor element',
-  'range edge node is not text node'
-]
+getHighlightedTextNode.ERROR_MAP = {
+  '10': 'selection is collapsed',
+  '20': 'no common ancestor element',
+}
 
 // @param {Node} node
 // @param {Object} [options]
