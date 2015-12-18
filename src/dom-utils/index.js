@@ -40,26 +40,18 @@ export function getHighlightedTextNode (selection) {
       return NON_WHITESPACE.test(textNode.nodeValue)
     },
   })
-  let highlightedTextNodes
-  // TODO: check whether `range.startContainer` is always text node
-  if (range.startContainer.nodeType !== Node.TEXT_NODE ||
-    range.endContainer.nodeType !== Node.TEXT_NODE
-  ) {
-    throw new Error(getHighlightedTextNode.ERROR_MESSAGES[2])
-  }
-  let indexOfRangeStartTextNode = allTextNodes.indexOf(range.startContainer)
-  let indexOfRangeEndTextNode = allTextNodes.indexOf(range.endContainer)
-  if (indexOfRangeStartTextNode === -1 && indexOfRangeEndTextNode === -1) {
-    highlightedTextNodes = allTextNodes
-  }
-  else {
-    if (indexOfRangeStartTextNode === -1) indexOfRangeStartTextNode = 0
-    else indexOfRangeEndTextNode = allTextNodes.length
-    highlightedTextNodes = allTextNodes.slice(
-      indexOfRangeStartTextNode,
-      indexOfRangeEndTextNode
-    )
-  }
+  // if `range.startContainer` is not text node, use the first text node in
+  // `range.startContainer`
+  let rangeStartTextNode = range.startContainer.nodeType === Node.TEXT_NODE ?
+    range.startContainer :
+    getTextNodesIn(range.startContainer).shift()
+  let rangeEndTextNode = range.endContainer.nodeType === Node.TEXT_NODE ?
+    range.endContainer :
+    getTextNodesIn(range.endContainer).pop()
+  let highlightedTextNodes = allTextNodes.slice(
+    allTextNodes.indexOf(rangeStartTextNode),
+    allTextNodes.indexOf(rangeEndTextNode)
+  )
 
   return {
     cae: commonAncestorElement,
