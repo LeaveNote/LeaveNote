@@ -88,15 +88,14 @@ getHighlightedTextNode.ERROR_MAP = {
 
 // @param {Node} node
 // @param {Object} [options]
-// @param {boolean} [options.excludeWhitespaceText=true]
-// @param {string[]} [options.excludeTagNames=[...]] See source code for default
-// value. Not find text nodes in these tags.
-// @return {Text[]} All text nodes inside element, as the order in DOM.
+// @param {Function} [options.isPickTextNode=returnTrue]
+// @param {Function} [options.isDeepIntoNode=returnTrue]
+// @return {Text[]} All text nodes inside `node`, as the order in DOM.
 export function getTextNodesIn (
   node,
   {
-    isPickTextNode = (function() {return true}),
-    isDeepIntoNode = (function() {return true}),
+    isPickTextNode = returnTrue,
+    isDeepIntoNode = returnTrue,
   } = {}
 ) {
   let textNodes = []
@@ -118,3 +117,5 @@ export function getTextNodesIn (
 
   return textNodes
 }
+
+function returnTrue () {return true}
