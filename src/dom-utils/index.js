@@ -1,3 +1,8 @@
+import {createHighlightId} from '../store'
+import {
+  HIGHLIGHT_COMMON_CSS_CLASS, parseHighlightUniqueCssClass, isHighlightUniqueCssClass, extractHighlightUniqueCssClass,
+} from './highlight-css-class'
+
 // @function get `HighlightedTextNode` object from selection
 // @param {Selection} selection See doc:
 // https://developer.mozilla.org/en-US/docs/Web/API/Selection
@@ -53,7 +58,23 @@ export function getHighlightedTextNode (selection) {
     allTextNodes.indexOf(rangeEndTextNode)
   )
 
+  let id = null
+  highlightedTextNodes.some((node) => {
+    let {parentNode} = node
+    if (parentNode.nodeType === Node.ELEMENT_NODE &&
+      parentNode.classList.contains(HIGHLIGHT_COMMON_CSS_CLASS)
+    ) {
+      let highlightUniqueCssClass =
+        extractHighlightUniqueCssClass(parentNode.classList)
+      if (!highlightUniqueCssClass) return
+      id = parseHighlightUniqueCssClass(highlightUniqueCssClass).highlightId
+      return true
+    }
+  })
+  id = id || createHighlightId()
+
   return {
+    id,
     cae: commonAncestorElement,
     htn: highlightedTextNodes,
     fhtno: range.startOffset,

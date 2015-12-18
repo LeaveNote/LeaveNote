@@ -11,6 +11,11 @@ export let highlights = []
 // @prop {string} note.content
 export let notes = []
 
+// @return {string} A number whose radix is 32
+export function createHighlightId () {
+  return (Date.now()).toString(32)
+}
+
 export function fetchHighlights () {
   return Q.Promise((resolve, reject, notify) => {
     resolve([{
