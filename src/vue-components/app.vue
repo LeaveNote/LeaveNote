@@ -28,7 +28,7 @@ export default Vue.extend({
   },
   methods: {
     handleHighlightText (highlights) {
-      this.highlights = this.highlights.concat(highlights)
+      
     },
   },
 })
