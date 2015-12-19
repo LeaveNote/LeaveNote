@@ -29,7 +29,6 @@ export function fetchHighlights () {
   })
 }
 
-export function updateHighlights (newHighlights) {
-  highlights = newHighlights
-  return Q.Promise((resolve, reject, notify) => resolve())
+export function addHighlight () {
+
 }

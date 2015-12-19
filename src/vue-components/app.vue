@@ -3,7 +3,7 @@ import Vue from 'vue'
 import Toolbar from './toolbar.vue'
 import Highlight from './highlight.vue'
 import onHighlightText from '../vue-directives/on-highlight-text'
-import {fetchHighlights} from '../store'
+import {fetchHighlights, addHighlight} from '../store'
 
 export default Vue.extend({
   data () {
@@ -27,8 +27,10 @@ export default Vue.extend({
     .done()
   },
   methods: {
-    handleHighlightText (highlights) {
-      
+    handleHighlightText (highlightedTextNode) {
+      Promise.resolve(highlightedTextNode)
+      .then(parseHighlightedTextNode)
+      .then(addHighlight)
     },
   },
 })

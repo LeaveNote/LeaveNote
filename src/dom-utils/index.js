@@ -140,3 +140,10 @@ export function getTextNodesIn (
 }
 
 function returnTrue () {return true}
+
+// @param {HighlightedTextNode} highlightedTextNode
+// @return {HighlightedText} See doc:
+// https://github.com/LeaveNote/LeaveNote/issues/4
+export function parseHighlightedTextNode (highlightedTextNode) {
+
+}
