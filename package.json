@@ -5,7 +5,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LeaveNote/LeaveNote.git"
+    "url": "git+https://github.com/MissingNotes/LeaveNote.git"
   },
   "keywords": [
     "note",
@@ -14,9 +14,9 @@
   "author": "kerryChen95",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/LeaveNote/LeaveNote/issues"
+    "url": "https://github.com/MissingNotes/LeaveNote/issues"
   },
-  "homepage": "https://github.com/LeaveNote/LeaveNote",
+  "homepage": "https://github.com/MissingNotes/LeaveNote",
   "scripts": {
     "dev": "rm -fr ./dist/* && node build"
   },
