@@ -4,6 +4,7 @@ import Toolbar from './toolbar.vue'
 import Highlight from './highlight.vue'
 import onHighlightText from '../vue-directives/on-highlight-text'
 import {fetchHighlights, addHighlight} from '../store'
+import {parseHighlightedTextNode} from '../dom-utils'
 
 export default Vue.extend({
   data () {

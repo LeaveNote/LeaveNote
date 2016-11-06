@@ -146,4 +146,8 @@ function returnTrue () {return true}
 // https://github.com/LeaveNote/LeaveNote/issues/4
 export function parseHighlightedTextNode (highlightedTextNode) {
 
+  return {
+    id: highlightedTextNode.id,
+    page: location.href,
+  }
 }

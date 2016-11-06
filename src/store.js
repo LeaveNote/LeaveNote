@@ -29,6 +29,6 @@ export function fetchHighlights () {
   })
 }
 
-export function addHighlight () {
-
+export function addHighlight (highlight) {
+  highlights.push(highlight)
 }
